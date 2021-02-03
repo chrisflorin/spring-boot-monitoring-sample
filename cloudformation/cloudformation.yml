@@ -226,7 +226,21 @@ Resources:
         UserData:
           'Fn::Base64': !Sub |
             #!/bin/bash
-            ${UserData}
+
+            #Update Apt
+            apt update
+
+            #Upgrade packages for bugs/security fixes
+            apt upgrade -y
+
+            #Install CodeDeploy Prerequisites
+            apt install -y ruby
+
+            #Install CodeDeploy Agent
+            wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/releases/codedeploy-agent_1.2.0-1866_all.deb
+            dpkg -i codedeploy-agent_1.2.0-1866_all.deb
+            systemctl start codedeploy-agent
+            systemctl enable codedeploy-agent
       LaunchTemplateName: !Sub ${ApplicationName}-${Stage}-${Sequence}-launch-template
 
   #5) Auto Scaling Group
