@@ -40,6 +40,10 @@ Parameters:
     Default: t3.micro
     Type: String
 
+  LoadBalancerListenerArn:
+    Default: none
+    Type: String
+
   Port:
     Default: 8080
     Type: String
